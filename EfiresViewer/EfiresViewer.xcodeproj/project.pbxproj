@@ -1,0 +1,283 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A59A3E331943B75B00E0166A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59A3E321943B75B00E0166A /* main.swift */; };
+		A59A3E351943B75B00E0166A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59A3E341943B75B00E0166A /* AppDelegate.swift */; };
+		A59A3E3A1943B75B00E0166A /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A59A3E381943B75B00E0166A /* MainMenu.xib */; };
+		A59A3E501943B79100E0166A /* EfiresFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59A3E4F1943B79100E0166A /* EfiresFile.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A59A3E2D1943B75B00E0166A /* EfiresViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EfiresViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A59A3E311943B75B00E0166A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A59A3E321943B75B00E0166A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		A59A3E341943B75B00E0166A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A59A3E391943B75B00E0166A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		A59A3E4F1943B79100E0166A /* EfiresFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EfiresFile.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A59A3E2A1943B75B00E0166A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A59A3E241943B75B00E0166A = {
+			isa = PBXGroup;
+			children = (
+				A59A3E2F1943B75B00E0166A /* EfiresViewer */,
+				A59A3E2E1943B75B00E0166A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A59A3E2E1943B75B00E0166A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A59A3E2D1943B75B00E0166A /* EfiresViewer.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A59A3E2F1943B75B00E0166A /* EfiresViewer */ = {
+			isa = PBXGroup;
+			children = (
+				A59A3E341943B75B00E0166A /* AppDelegate.swift */,
+				A59A3E4F1943B79100E0166A /* EfiresFile.swift */,
+				A59A3E381943B75B00E0166A /* MainMenu.xib */,
+				A59A3E301943B75B00E0166A /* Supporting Files */,
+			);
+			path = EfiresViewer;
+			sourceTree = "<group>";
+		};
+		A59A3E301943B75B00E0166A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A59A3E311943B75B00E0166A /* Info.plist */,
+				A59A3E321943B75B00E0166A /* main.swift */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A59A3E2C1943B75B00E0166A /* EfiresViewer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A59A3E491943B75B00E0166A /* Build configuration list for PBXNativeTarget "EfiresViewer" */;
+			buildPhases = (
+				A59A3E291943B75B00E0166A /* Sources */,
+				A59A3E2A1943B75B00E0166A /* Frameworks */,
+				A59A3E2B1943B75B00E0166A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EfiresViewer;
+			productName = EfiresViewer;
+			productReference = A59A3E2D1943B75B00E0166A /* EfiresViewer.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A59A3E251943B75B00E0166A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = "Kevin Wojniak";
+				TargetAttributes = {
+					A59A3E2C1943B75B00E0166A = {
+						CreatedOnToolsVersion = 6.0;
+					};
+				};
+			};
+			buildConfigurationList = A59A3E281943B75B00E0166A /* Build configuration list for PBXProject "EfiresViewer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A59A3E241943B75B00E0166A;
+			productRefGroup = A59A3E2E1943B75B00E0166A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A59A3E2C1943B75B00E0166A /* EfiresViewer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A59A3E2B1943B75B00E0166A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A59A3E3A1943B75B00E0166A /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A59A3E291943B75B00E0166A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A59A3E351943B75B00E0166A /* AppDelegate.swift in Sources */,
+				A59A3E501943B79100E0166A /* EfiresFile.swift in Sources */,
+				A59A3E331943B75B00E0166A /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		A59A3E381943B75B00E0166A /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A59A3E391943B75B00E0166A /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A59A3E471943B75B00E0166A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				METAL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A59A3E481943B75B00E0166A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				METAL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		A59A3E4A1943B75B00E0166A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = EfiresViewer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A59A3E4B1943B75B00E0166A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = EfiresViewer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A59A3E281943B75B00E0166A /* Build configuration list for PBXProject "EfiresViewer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A59A3E471943B75B00E0166A /* Debug */,
+				A59A3E481943B75B00E0166A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A59A3E491943B75B00E0166A /* Build configuration list for PBXNativeTarget "EfiresViewer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A59A3E4A1943B75B00E0166A /* Debug */,
+				A59A3E4B1943B75B00E0166A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A59A3E251943B75B00E0166A /* Project object */;
+}
