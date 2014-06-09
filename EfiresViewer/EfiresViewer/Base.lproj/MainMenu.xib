@@ -173,7 +173,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="480" height="360"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
             <view key="contentView" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -236,16 +236,10 @@
                     </textField>
                     <popUpButton verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7gu-Rl-Obg">
                         <rect key="frame" x="54" y="317" width="189" height="26"/>
-                        <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="eFH-Kc-JHS" id="jBz-ve-X4M">
+                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="jBz-ve-X4M">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="menu"/>
-                            <menu key="menu" id="y2P-dB-D25">
-                                <items>
-                                    <menuItem title="Item 1" state="on" id="eFH-Kc-JHS"/>
-                                    <menuItem title="Item 2" id="iY2-YK-W4K"/>
-                                    <menuItem title="Item 3" id="n2I-KP-g9B"/>
-                                </items>
-                            </menu>
+                            <menu key="menu" id="y2P-dB-D25"/>
                         </popUpButtonCell>
                         <connections>
                             <action selector="selectedFile:" target="Voe-Tx-rLC" id="buD-JC-ZnG"/>

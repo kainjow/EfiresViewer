@@ -74,7 +74,7 @@ class EfiresFile {
             return nil
         }
         
-        if file!.readLittle16() != 2 {
+        if file!.readLittle16() == nil {
             println("Bad version.")
             return nil
         }

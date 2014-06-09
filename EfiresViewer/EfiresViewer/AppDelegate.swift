@@ -14,20 +14,30 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource {
     var entries: EfiresEntry[]? = nil
 
     override func awakeFromNib() {
-        filesPopUp.removeAllItems()
-        for path in EfiresFile.systemFilePaths() {
-            var menuItem = NSMenuItem(title: path.lastPathComponent.stringByDeletingPathExtension, action: nil, keyEquivalent: "")
-            menuItem.representedObject = path
-            filesPopUp.menu.addItem(menuItem)
-        }
-        filesPopUp.selectItemAtIndex(-1)
+        dispatch_async(dispatch_get_global_queue(0, 0), {
+            var paths = EfiresFile.systemFilePaths()
+            dispatch_async(dispatch_get_main_queue(), {
+                for path in paths {
+                    var menuItem = NSMenuItem(title: path.lastPathComponent.stringByDeletingPathExtension, action: nil, keyEquivalent: "")
+                    menuItem.representedObject = path
+                    self.filesPopUp.menu.addItem(menuItem)
+                }
+                self.filesPopUp.selectItemAtIndex(-1)
+                self.filesPopUp.enabled = true
+            })
+        })
     }
     
     @IBAction func selectedFile(sender: AnyObject!) {
         path = filesPopUp.selectedItem.representedObject as? String
-        entries = EfiresFile.entriesAtPath(path!)
-        tableView.selectRowIndexes(NSIndexSet(), byExtendingSelection: false)
-        tableView.reloadData()
+        dispatch_async(dispatch_get_global_queue(0, 0), {
+            var newEntries = EfiresFile.entriesAtPath(self.path!)
+            dispatch_async(dispatch_get_main_queue(), {
+                self.entries = newEntries
+                self.tableView.selectRowIndexes(NSIndexSet(), byExtendingSelection: false)
+                self.tableView.reloadData()
+            })
+        })
     }
     
     func applicationShouldTerminateAfterLastWindowClosed(theApp: NSApplication!) -> Bool {
@@ -47,7 +57,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource {
             imageView.image = nil
         } else {
             var entry = entries![tableView.selectedRow]
-            imageView.image = EfiresFile.imageForEntry(entry, path: path!)
+            dispatch_async(dispatch_get_global_queue(0, 0), {
+                var image = EfiresFile.imageForEntry(entry, path: self.path!)
+                dispatch_async(dispatch_get_main_queue(), {
+                    if image {
+                        self.imageView.image = image
+                    } else {
+                        self.imageView.image = nil
+                        println("Not an image: \(entry.name)")
+                    }
+                })
+            })
         }
     }
 }
