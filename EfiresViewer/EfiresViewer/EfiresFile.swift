@@ -32,7 +32,7 @@ extension NSFileHandle {
     }
     
     func readLittle16() -> UInt16? {
-        if let vals = readBytes(2) {
+        if let vals = readBytes(sizeof(UInt16)) {
             var r: UInt16 = 0
             r |= UInt16(vals[1]) << 8
             r |= UInt16(vals[0])
@@ -42,7 +42,7 @@ extension NSFileHandle {
     }
     
     func readLittle32() -> UInt32? {
-        if let vals = readBytes(4) {
+        if let vals = readBytes(sizeof(UInt32)) {
             var r: UInt32 = 0
             r |= UInt32(vals[3]) << 24
             r |= UInt32(vals[2]) << 16
