@@ -32,25 +32,23 @@ extension NSFileHandle {
     }
     
     func readLittle16() -> UInt16? {
-        if let vals = readBytes(sizeof(UInt16)) {
-            var r: UInt16 = 0
-            r |= UInt16(vals[1]) << 8
-            r |= UInt16(vals[0])
-            return r
+        let dat: NSData? = readDataOfLength(sizeof(UInt16));
+        if dat?.length != sizeof(UInt16) {
+            return nil
         }
-        return nil
+        var val: UInt16 = 0
+        dat!.getBytes(&val)
+        return val.littleEndian
     }
     
     func readLittle32() -> UInt32? {
-        if let vals = readBytes(sizeof(UInt32)) {
-            var r: UInt32 = 0
-            r |= UInt32(vals[3]) << 24
-            r |= UInt32(vals[2]) << 16
-            r |= UInt32(vals[1]) << 8
-            r |= UInt32(vals[0])
-            return r
+        let dat: NSData? = readDataOfLength(sizeof(UInt32));
+        if dat?.length != sizeof(UInt32) {
+            return nil
         }
-        return nil
+        var val: UInt32 = 0
+        dat!.getBytes(&val)
+        return val.littleEndian
     }
 }
 
