@@ -36,6 +36,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource {
                 self.entries = newEntries
                 self.tableView.selectRowIndexes(NSIndexSet(), byExtendingSelection: false)
                 self.tableView.reloadData()
+                self.tableView.scrollToBeginningOfDocument(nil)
             })
         })
     }
