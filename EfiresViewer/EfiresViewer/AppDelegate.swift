@@ -11,7 +11,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource {
     @IBOutlet var imageView : NSImageView
     
     var path: String? = nil
-    var entries: EfiresEntry[]? = nil
+    var entries: [EfiresEntry]? = nil
 
     override func awakeFromNib() {
         dispatch_async(dispatch_get_global_queue(0, 0), {

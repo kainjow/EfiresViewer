@@ -5,13 +5,13 @@
 import Cocoa
 
 extension NSFileHandle {
-    func readBytes(count: Int) -> UInt8[]? {
+    func readBytes(count: Int) -> [UInt8]? {
         let dat: NSData? = readDataOfLength(count)
         if dat?.length != count {
             println("Can't read bytes.")
             return nil
         }
-        var bytes = UInt8[](count: count, repeatedValue: 0)
+        var bytes = [UInt8](count: count, repeatedValue: 0)
         dat!.getBytes(&bytes, length: dat!.length)
         return bytes
     }
@@ -66,7 +66,7 @@ class EfiresEntry {
 }
 
 class EfiresFile {
-    class func entriesAtPath(path: String) -> EfiresEntry[]? {
+    class func entriesAtPath(path: String) -> [EfiresEntry]? {
         let url = NSURL.fileURLWithPath(path)
         let file: NSFileHandle? = NSFileHandle.fileHandleForReadingFromURL(url, error: nil)
         if !file {
@@ -85,8 +85,8 @@ class EfiresFile {
             return nil
         }
         
-        var entries: EfiresEntry[] = []
-        for _ in 0..count! {
+        var entries: [EfiresEntry] = []
+        for _ in 0 ..< count! {
             let name = file!.readASCIIString(64)
             let offset = file!.readLittle32()
             let length = file!.readLittle32()
@@ -111,11 +111,11 @@ class EfiresFile {
         return NSImage(data: file!.readDataOfLength(Int(entry.length)))
     }
     
-    class func systemFilePaths() -> String[] {
+    class func systemFilePaths() -> [String] {
         var parentDir = "/usr/standalone/i386/EfiLoginUI"
         var fm = NSFileManager.defaultManager()
-        var contents = fm.contentsOfDirectoryAtPath(parentDir, error: nil) as String[]
-        var paths: String[] = []
+        var contents = fm.contentsOfDirectoryAtPath(parentDir, error: nil) as [String]
+        var paths: [String] = []
         for fileName in contents {
             var path = parentDir.stringByAppendingPathComponent(fileName)
             if let entries = entriesAtPath(path) {
