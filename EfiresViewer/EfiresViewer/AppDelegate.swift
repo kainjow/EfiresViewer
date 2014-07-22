@@ -6,9 +6,9 @@ import Cocoa
 
 class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource {
 
-    @IBOutlet var filesPopUp : NSPopUpButton
-    @IBOutlet var tableView : NSTableView
-    @IBOutlet var imageView : NSImageView
+    @IBOutlet var filesPopUp : NSPopUpButton!
+    @IBOutlet var tableView : NSTableView!
+    @IBOutlet var imageView : NSImageView!
     
     var path: String? = nil
     var entries: [EfiresEntry]? = nil

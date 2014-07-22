@@ -21,7 +21,7 @@ extension NSFileHandle {
             var s = ""
             for v in vals {
                 let uni = UnicodeScalar(UInt32(v))
-                if !uni.isPrint() {
+                if uni.value == 0 {
                     break
                 }
                 s += String(uni)
