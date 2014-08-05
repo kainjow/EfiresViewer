@@ -46,7 +46,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource {
     }
     
     func numberOfRowsInTableView(aTableView: NSTableView!) -> Int {
-        return !entries ? 0 : entries!.count
+        return entries == nil ? 0 : entries!.count
     }
     
     func tableView(aTableView: NSTableView!, objectValueForTableColumn aTableColumn: NSTableColumn!, row rowIndex: Int) -> AnyObject! {
@@ -61,7 +61,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource {
             dispatch_async(dispatch_get_global_queue(0, 0), {
                 var image = EfiresFile.imageForEntry(entry, path: self.path!)
                 dispatch_async(dispatch_get_main_queue(), {
-                    if image {
+                    if image != nil {
                         self.imageView.image = image
                     } else {
                         self.imageView.image = nil

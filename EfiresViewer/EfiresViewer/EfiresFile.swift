@@ -67,7 +67,7 @@ class EfiresFile {
     class func entriesAtPath(path: String) -> [EfiresEntry]? {
         let url = NSURL.fileURLWithPath(path)
         let file: NSFileHandle? = NSFileHandle.fileHandleForReadingFromURL(url, error: nil)
-        if !file {
+        if file == nil {
             println("Can't open file.")
             return nil
         }
@@ -78,7 +78,7 @@ class EfiresFile {
         }
         
         let count = file!.readLittle16()
-        if !count || count? == 0 {
+        if count == nil || count? == 0 {
             println("No files")
             return nil
         }
@@ -88,7 +88,7 @@ class EfiresFile {
             let name = file!.readASCIIString(64)
             let offset = file!.readLittle32()
             let length = file!.readLittle32()
-            if !name || !offset || !length {
+            if name == nil || offset == nil || length == nil {
                 println("Can't read entry.")
                 return nil
             }
@@ -102,7 +102,7 @@ class EfiresFile {
     class func imageForEntry(entry: EfiresEntry, path: String) -> NSImage? {
         let url = NSURL.fileURLWithPath(path)
         let file: NSFileHandle? = NSFileHandle.fileHandleForReadingFromURL(url, error: nil)
-        if !file {
+        if file == nil {
             return nil
         }
         file!.seekToFileOffset(CUnsignedLongLong(entry.offset))
