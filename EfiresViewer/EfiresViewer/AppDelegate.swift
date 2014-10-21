@@ -20,7 +20,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource {
                 for path in paths {
                     var menuItem = NSMenuItem(title: path.lastPathComponent.stringByDeletingPathExtension, action: nil, keyEquivalent: "")
                     menuItem.representedObject = path
-                    self.filesPopUp.menu.addItem(menuItem)
+                    self.filesPopUp.menu?.addItem(menuItem)
                 }
                 self.filesPopUp.selectItemAtIndex(-1)
                 self.filesPopUp.enabled = true
@@ -29,7 +29,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource {
     }
     
     @IBAction func selectedFile(sender: AnyObject!) {
-        path = filesPopUp.selectedItem.representedObject as? String
+        path = filesPopUp.selectedItem?.representedObject as? String
         dispatch_async(dispatch_get_global_queue(0, 0), {
             var newEntries = EfiresFile.entriesAtPath(self.path!)
             dispatch_async(dispatch_get_main_queue(), {

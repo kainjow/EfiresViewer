@@ -66,7 +66,7 @@ class EfiresEntry {
 class EfiresFile {
     class func entriesAtPath(path: String) -> [EfiresEntry]? {
         let url = NSURL.fileURLWithPath(path)
-        let file: NSFileHandle? = NSFileHandle.fileHandleForReadingFromURL(url, error: nil)
+        let file: NSFileHandle? = NSFileHandle(forReadingFromURL: url!, error: nil)
         if file == nil {
             println("Can't open file.")
             return nil
@@ -101,7 +101,7 @@ class EfiresFile {
     
     class func imageForEntry(entry: EfiresEntry, path: String) -> NSImage? {
         let url = NSURL.fileURLWithPath(path)
-        let file: NSFileHandle? = NSFileHandle.fileHandleForReadingFromURL(url, error: nil)
+        let file: NSFileHandle? = NSFileHandle(forReadingFromURL: url!, error: nil)
         if file == nil {
             return nil
         }
