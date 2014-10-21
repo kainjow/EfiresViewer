@@ -4,7 +4,7 @@
 
 import Cocoa
 
-class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource {
+@NSApplicationMain class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource {
 
     @IBOutlet var filesPopUp : NSPopUpButton!
     @IBOutlet var tableView : NSTableView!

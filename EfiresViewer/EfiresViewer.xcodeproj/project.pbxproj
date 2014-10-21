@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A59A3E331943B75B00E0166A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59A3E321943B75B00E0166A /* main.swift */; };
 		A59A3E351943B75B00E0166A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59A3E341943B75B00E0166A /* AppDelegate.swift */; };
 		A59A3E3A1943B75B00E0166A /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A59A3E381943B75B00E0166A /* MainMenu.xib */; };
 		A59A3E501943B79100E0166A /* EfiresFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59A3E4F1943B79100E0166A /* EfiresFile.swift */; };
@@ -16,7 +15,6 @@
 /* Begin PBXFileReference section */
 		A59A3E2D1943B75B00E0166A /* EfiresViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EfiresViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A59A3E311943B75B00E0166A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A59A3E321943B75B00E0166A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		A59A3E341943B75B00E0166A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A59A3E391943B75B00E0166A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		A59A3E4F1943B79100E0166A /* EfiresFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EfiresFile.swift; sourceTree = "<group>"; };
@@ -64,7 +62,6 @@
 			isa = PBXGroup;
 			children = (
 				A59A3E311943B75B00E0166A /* Info.plist */,
-				A59A3E321943B75B00E0166A /* main.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -139,7 +136,6 @@
 			files = (
 				A59A3E351943B75B00E0166A /* AppDelegate.swift in Sources */,
 				A59A3E501943B79100E0166A /* EfiresFile.swift in Sources */,
-				A59A3E331943B75B00E0166A /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
