@@ -99,14 +99,22 @@ class EfiresFile {
         return entries
     }
     
-    class func imageForEntry(entry: EfiresEntry, path: String) -> NSImage? {
+    class func dataForEntry(entry: EfiresEntry, path: String) -> NSData? {
         let url = NSURL.fileURLWithPath(path)
         let file: NSFileHandle? = NSFileHandle(forReadingFromURL: url!, error: nil)
         if file == nil {
             return nil
         }
         file!.seekToFileOffset(CUnsignedLongLong(entry.offset))
-        return NSImage(data: file!.readDataOfLength(Int(entry.length)))
+        return file!.readDataOfLength(Int(entry.length))
+    }
+    
+    class func imageForEntry(entry: EfiresEntry, path: String) -> NSImage? {
+        let data = dataForEntry(entry, path: path)
+        if data == nil {
+            return nil
+        }
+        return NSImage(data: data!)
     }
     
     class func systemFilePaths() -> [String] {

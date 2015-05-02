@@ -9,6 +9,7 @@ import Cocoa
     @IBOutlet var filesPopUp : NSPopUpButton!
     @IBOutlet var tableView : NSTableView!
     @IBOutlet var imageView : NSImageView!
+    @IBOutlet weak var mainWindow: NSWindow!
     
     var path: String? = nil
     var entries: [EfiresEntry]? = nil
@@ -54,7 +55,7 @@ import Cocoa
     }
     
     func tableViewSelectionDidChange(aNotification: NSNotification?) {
-        if tableView.numberOfSelectedRows == 0 {
+        if tableView.numberOfSelectedRows != 1 {
             imageView.image = nil
         } else {
             var entry = entries![tableView.selectedRow]
@@ -70,5 +71,29 @@ import Cocoa
                 })
             })
         }
+    }
+    
+    @IBAction func export(sender: AnyObject!) {
+        var openPanel = NSOpenPanel()
+        openPanel.canChooseDirectories = true
+        openPanel.canChooseFiles = false
+        openPanel.beginSheetModalForWindow(self.mainWindow, completionHandler: { (Int returnCode) -> Void in
+            if returnCode == NSFileHandlingPanelOKButton {
+                let url = openPanel.URL
+                for row in self.tableView.selectedRowIndexes {
+                    let entry = self.entries![row]
+                    if let data = EfiresFile.dataForEntry(entry, path: self.path!) {
+                        let entryURL = url?.URLByAppendingPathComponent(entry.name)
+                        if data.writeToURL(entryURL!, atomically:true) == false {
+                            println("Failed to write \(entry.name)")
+                        }
+                    }
+                }
+            }
+        })
+    }
+    
+    func exportMenuEnabled() -> Bool {
+        return self.tableView.numberOfSelectedRows != 0
     }
 }
