@@ -41,15 +41,15 @@ import Cocoa
         })
     }
     
-    func applicationShouldTerminateAfterLastWindowClosed(theApp: NSApplication!) -> Bool {
+    func applicationShouldTerminateAfterLastWindowClosed(theApp: NSApplication) -> Bool {
         return true;
     }
     
-    func numberOfRowsInTableView(aTableView: NSTableView!) -> Int {
+    func numberOfRowsInTableView(aTableView: NSTableView) -> Int {
         return entries == nil ? 0 : entries!.count
     }
     
-    func tableView(aTableView: NSTableView!, objectValueForTableColumn aTableColumn: NSTableColumn!, row rowIndex: Int) -> AnyObject! {
+    func tableView(aTableView: NSTableView, objectValueForTableColumn aTableColumn: NSTableColumn?, row rowIndex: Int) -> AnyObject? {
         return entries![rowIndex].name
     }
     

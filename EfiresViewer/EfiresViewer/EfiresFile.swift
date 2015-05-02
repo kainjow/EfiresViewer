@@ -78,7 +78,7 @@ class EfiresFile {
         }
         
         let count = file!.readLittle16()
-        if count == nil || count? == 0 {
+        if count == nil || count == 0 {
             println("No files")
             return nil
         }
@@ -112,7 +112,7 @@ class EfiresFile {
     class func systemFilePaths() -> [String] {
         var parentDir = "/usr/standalone/i386/EfiLoginUI"
         var fm = NSFileManager.defaultManager()
-        var contents = fm.contentsOfDirectoryAtPath(parentDir, error: nil) as [String]
+        var contents = fm.contentsOfDirectoryAtPath(parentDir, error: nil) as! [String]
         var paths: [String] = []
         for fileName in contents {
             var path = parentDir.stringByAppendingPathComponent(fileName)
