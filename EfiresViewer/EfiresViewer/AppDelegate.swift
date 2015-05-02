@@ -19,7 +19,7 @@ import Cocoa
             var paths = EfiresFile.systemFilePaths()
             dispatch_async(dispatch_get_main_queue(), {
                 for path in paths {
-                    var menuItem = NSMenuItem(title: path.lastPathComponent.stringByDeletingPathExtension, action: nil, keyEquivalent: "")
+                    let menuItem = NSMenuItem(title: path.lastPathComponent.stringByDeletingPathExtension, action: nil, keyEquivalent: "")
                     menuItem.representedObject = path
                     self.filesPopUp.menu?.addItem(menuItem)
                 }
@@ -58,7 +58,7 @@ import Cocoa
         if tableView.numberOfSelectedRows != 1 {
             imageView.image = nil
         } else {
-            var entry = entries![tableView.selectedRow]
+            let entry = entries![tableView.selectedRow]
             dispatch_async(dispatch_get_global_queue(0, 0), {
                 var image = EfiresFile.imageForEntry(entry, path: self.path!)
                 dispatch_async(dispatch_get_main_queue(), {
