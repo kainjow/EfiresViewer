@@ -8,7 +8,7 @@ extension NSFileHandle {
     func readBytes(count: Int) -> [UInt8]? {
         let dat: NSData? = readDataOfLength(count)
         if dat?.length != count {
-            println("Can't read bytes.")
+            print("Can't read bytes.")
             return nil
         }
         var bytes = [UInt8](count: count, repeatedValue: 0)
@@ -64,23 +64,22 @@ class EfiresEntry {
 }
 
 class EfiresFile {
-    class func entriesAtPath(path: String) -> [EfiresEntry]? {
-        let url = NSURL.fileURLWithPath(path)
-        let file: NSFileHandle? = NSFileHandle(forReadingFromURL: url!, error: nil)
+    class func entriesAtURL(url: NSURL) -> [EfiresEntry] {
+        let file: NSFileHandle? = try? NSFileHandle(forReadingFromURL: url)
         if file == nil {
-            println("Can't open file.")
-            return nil
+            print("Can't open file.")
+            return []
         }
         
         if file!.readLittle16() == nil {
-            println("Bad version.")
-            return nil
+            print("Bad version.")
+            return []
         }
         
         let count = file!.readLittle16()
         if count == nil || count == 0 {
-            println("No files")
-            return nil
+            print("No files")
+            return []
         }
         
         var entries: [EfiresEntry] = []
@@ -89,8 +88,8 @@ class EfiresFile {
             let offset = file!.readLittle32()
             let length = file!.readLittle32()
             if name == nil || offset == nil || length == nil {
-                println("Can't read entry.")
-                return nil
+                print("Can't read entry.")
+                return []
             }
 
             entries.append(EfiresEntry(name: name!, offset: offset!, length: length!))
@@ -99,9 +98,8 @@ class EfiresFile {
         return entries
     }
     
-    class func dataForEntry(entry: EfiresEntry, path: String) -> NSData? {
-        let url = NSURL.fileURLWithPath(path)
-        let file: NSFileHandle? = NSFileHandle(forReadingFromURL: url!, error: nil)
+    class func dataForEntry(entry: EfiresEntry, url: NSURL) -> NSData? {
+        let file: NSFileHandle? = try? NSFileHandle(forReadingFromURL: url)
         if file == nil {
             return nil
         }
@@ -109,25 +107,24 @@ class EfiresFile {
         return file!.readDataOfLength(Int(entry.length))
     }
     
-    class func imageForEntry(entry: EfiresEntry, path: String) -> NSImage? {
-        let data = dataForEntry(entry, path: path)
+    class func imageForEntry(entry: EfiresEntry, url: NSURL) -> NSImage? {
+        let data = dataForEntry(entry, url: url)
         if data == nil {
             return nil
         }
         return NSImage(data: data!)
     }
     
-    class func systemFilePaths() -> [String] {
-        var parentDir = "/usr/standalone/i386/EfiLoginUI"
-        var fm = NSFileManager.defaultManager()
-        var contents = fm.contentsOfDirectoryAtPath(parentDir, error: nil) as! [String]
-        var paths: [String] = []
-        for fileName in contents {
-            var path = parentDir.stringByAppendingPathComponent(fileName)
-            if let entries = entriesAtPath(path) {
-                paths.append(path)
+    class func systemFileURLs() -> [NSURL] {
+        let parentURL = NSURL(fileURLWithPath: "/usr/standalone/i386/EfiLoginUI")
+        let fm = NSFileManager.defaultManager()
+        let contents = (try! fm.contentsOfDirectoryAtURL(parentURL, includingPropertiesForKeys:[], options: NSDirectoryEnumerationOptions(rawValue: 0)))
+        var urls: [NSURL] = []
+        for fileURL in contents {
+            if !entriesAtURL(fileURL).isEmpty {
+                urls.append(fileURL)
             }
         }
-        return paths
+        return urls
     }
 }
