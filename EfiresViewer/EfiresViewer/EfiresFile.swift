@@ -37,7 +37,7 @@ extension NSFileHandle {
             return nil
         }
         var val: UInt16 = 0
-        dat!.getBytes(&val)
+        dat!.getBytes(&val, length: sizeof(UInt16))
         return val.littleEndian
     }
     
@@ -47,7 +47,7 @@ extension NSFileHandle {
             return nil
         }
         var val: UInt32 = 0
-        dat!.getBytes(&val)
+        dat!.getBytes(&val, length: sizeof(UInt32))
         return val.littleEndian
     }
 }
