@@ -78,7 +78,7 @@ import Cocoa
         let openPanel = NSOpenPanel()
         openPanel.canChooseDirectories = true
         openPanel.canChooseFiles = false
-        openPanel.beginSheetModalForWindow(self.mainWindow, completionHandler: { (Int returnCode) -> Void in
+        openPanel.beginSheetModalForWindow(self.mainWindow, completionHandler: { (returnCode) -> Void in
             if returnCode == NSFileHandlingPanelOKButton {
                 let url = openPanel.URL
                 for row in self.tableView.selectedRowIndexes {
