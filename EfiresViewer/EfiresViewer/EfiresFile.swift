@@ -4,23 +4,25 @@
 
 import Cocoa
 
-extension NSFileHandle {
-    func readBytes(count: Int) -> [UInt8]? {
-        let dat: NSData? = readDataOfLength(count)
-        if dat?.length != count {
+extension FileHandle {
+    private func readBytes(_ count: Int) -> [UInt8]? {
+        let dat = readData(ofLength: count) as NSData
+        if dat.length != count {
             print("Can't read bytes.")
             return nil
         }
-        var bytes = [UInt8](count: count, repeatedValue: 0)
-        dat!.getBytes(&bytes, length: dat!.length)
+        var bytes = [UInt8](repeating: 0, count: count)
+        dat.getBytes(&bytes, length: dat.length)
         return bytes
     }
     
-    func readASCIIString(count: Int) -> String? {
+    fileprivate func readASCIIString(_ count: Int) -> String? {
         if let vals = readBytes(count) {
             var s = ""
             for v in vals {
-                let uni = UnicodeScalar(UInt32(v))
+                guard let uni = UnicodeScalar(UInt32(v)) else {
+                    break
+                }
                 if uni.value == 0 {
                     break
                 }
@@ -31,23 +33,25 @@ extension NSFileHandle {
         return nil
     }
     
-    func readLittle16() -> UInt16? {
-        let dat: NSData? = readDataOfLength(sizeof(UInt16));
-        if dat?.length != sizeof(UInt16) {
+    fileprivate func readLittle16() -> UInt16? {
+        var val: UInt16 = 0
+        let size = MemoryLayout.size(ofValue: val)
+        let dat = readData(ofLength: size) as NSData
+        if dat.length != size {
             return nil
         }
-        var val: UInt16 = 0
-        dat!.getBytes(&val, length: sizeof(UInt16))
+        dat.getBytes(&val, length: size)
         return val.littleEndian
     }
     
-    func readLittle32() -> UInt32? {
-        let dat: NSData? = readDataOfLength(sizeof(UInt32));
-        if dat?.length != sizeof(UInt32) {
+    fileprivate func readLittle32() -> UInt32? {
+        var val: UInt32 = 0
+        let size = MemoryLayout.size(ofValue: val)
+        let dat = readData(ofLength: size) as NSData
+        if dat.length != size {
             return nil
         }
-        var val: UInt32 = 0
-        dat!.getBytes(&val, length: sizeof(UInt32))
+        dat.getBytes(&val, length: size)
         return val.littleEndian
     }
 }
@@ -64,19 +68,18 @@ class EfiresEntry {
 }
 
 class EfiresFile {
-    class func entriesAtURL(url: NSURL) -> [EfiresEntry] {
-        let file: NSFileHandle? = try? NSFileHandle(forReadingFromURL: url)
-        if file == nil {
+    class func entriesAtURL(url: URL) -> [EfiresEntry] {
+        guard let file = try? FileHandle(forReadingFrom: url) else {
             print("Can't open file.")
             return []
         }
         
-        if file!.readLittle16() == nil {
+        if file.readLittle16() == nil {
             print("Bad version.")
             return []
         }
         
-        let count = file!.readLittle16()
+        let count = file.readLittle16()
         if count == nil || count == 0 {
             print("No files")
             return []
@@ -84,9 +87,9 @@ class EfiresFile {
         
         var entries: [EfiresEntry] = []
         for _ in 0 ..< count! {
-            let name = file!.readASCIIString(64)
-            let offset = file!.readLittle32()
-            let length = file!.readLittle32()
+            let name = file.readASCIIString(64)
+            let offset = file.readLittle32()
+            let length = file.readLittle32()
             if name == nil || offset == nil || length == nil {
                 print("Can't read entry.")
                 return []
@@ -98,30 +101,30 @@ class EfiresFile {
         return entries
     }
     
-    class func dataForEntry(entry: EfiresEntry, url: NSURL) -> NSData? {
-        let file: NSFileHandle? = try? NSFileHandle(forReadingFromURL: url)
-        if file == nil {
+    class func dataForEntry(entry: EfiresEntry, url: URL) -> Data? {
+        guard let file = try? FileHandle(forReadingFrom: url) else {
             return nil
         }
-        file!.seekToFileOffset(CUnsignedLongLong(entry.offset))
-        return file!.readDataOfLength(Int(entry.length))
+        file.seek(toFileOffset: UInt64(entry.offset))
+        return file.readData(ofLength: Int(entry.length))
     }
     
-    class func imageForEntry(entry: EfiresEntry, url: NSURL) -> NSImage? {
-        let data = dataForEntry(entry, url: url)
-        if data == nil {
+    class func imageForEntry(entry: EfiresEntry, url: URL) -> NSImage? {
+        guard let data = dataForEntry(entry: entry, url: url) else {
             return nil
         }
-        return NSImage(data: data!)
+        return NSImage(data: data)
     }
     
-    class func systemFileURLs() -> [NSURL] {
-        let parentURL = NSURL(fileURLWithPath: "/usr/standalone/i386/EfiLoginUI")
-        let fm = NSFileManager.defaultManager()
-        let contents = (try! fm.contentsOfDirectoryAtURL(parentURL, includingPropertiesForKeys:[], options: NSDirectoryEnumerationOptions(rawValue: 0)))
-        var urls: [NSURL] = []
+    class func systemFileURLs() -> [URL] {
+        let parentURL = URL(fileURLWithPath: "/usr/standalone/i386/EfiLoginUI")
+        let fm = FileManager.default
+        guard let contents = try? fm.contentsOfDirectory(at: parentURL, includingPropertiesForKeys: [], options: FileManager.DirectoryEnumerationOptions.init(rawValue: 0)) else {
+            return []
+        }
+        var urls: [URL] = []
         for fileURL in contents {
-            if !entriesAtURL(fileURL).isEmpty {
+            if !entriesAtURL(url: fileURL).isEmpty {
                 urls.append(fileURL)
             }
         }

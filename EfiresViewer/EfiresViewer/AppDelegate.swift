@@ -11,82 +11,87 @@ import Cocoa
     @IBOutlet weak var imageView: NSImageView!
     @IBOutlet weak var mainWindow: NSWindow!
     
-    var url: NSURL? = nil
-    var entries: [EfiresEntry]? = nil
+    private var url: URL? = nil
+    private var entries: [EfiresEntry] = []
 
     override func awakeFromNib() {
-        dispatch_async(dispatch_get_global_queue(0, 0), {
+        DispatchQueue.global().async {
             let urls = EfiresFile.systemFileURLs()
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async {
                 for url in urls {
-                    let title = url.URLByDeletingPathExtension?.lastPathComponent
-                    let menuItem = NSMenuItem(title: title!, action: nil, keyEquivalent: "")
+                    let title = url.deletingPathExtension().lastPathComponent
+                    let menuItem = NSMenuItem(title: title, action: nil, keyEquivalent: "")
                     menuItem.representedObject = url
                     self.filesPopUp.menu?.addItem(menuItem)
                 }
-                self.filesPopUp.selectItemAtIndex(-1)
-                self.filesPopUp.enabled = true
-            })
-        })
+                self.filesPopUp.selectItem(at: -1)
+                self.filesPopUp.isEnabled = true
+            }
+        }
     }
     
-    @IBAction func selectedFile(sender: AnyObject!) {
-        self.url = filesPopUp.selectedItem?.representedObject as? NSURL
-        dispatch_async(dispatch_get_global_queue(0, 0), {
-            let newEntries = EfiresFile.entriesAtURL(self.url!)
-            dispatch_async(dispatch_get_main_queue(), {
+    @IBAction func selectedFile(_ sender: AnyObject) {
+        self.url = filesPopUp.selectedItem?.representedObject as? URL
+        DispatchQueue.global().async {
+            let newEntries = EfiresFile.entriesAtURL(url: self.url!)
+            DispatchQueue.main.async {
                 self.entries = newEntries
-                self.tableView.selectRowIndexes(NSIndexSet(), byExtendingSelection: false)
+                self.tableView.selectRowIndexes(IndexSet(), byExtendingSelection: false)
                 self.tableView.reloadData()
                 self.tableView.scrollToBeginningOfDocument(nil)
-            })
-        })
+            }
+        }
     }
     
-    func applicationShouldTerminateAfterLastWindowClosed(theApp: NSApplication) -> Bool {
-        return true;
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        return true
     }
     
-    func numberOfRowsInTableView(aTableView: NSTableView) -> Int {
-        return entries == nil ? 0 : entries!.count
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return entries.count
     }
     
-    func tableView(aTableView: NSTableView, objectValueForTableColumn aTableColumn: NSTableColumn?, row rowIndex: Int) -> AnyObject? {
-        return entries![rowIndex].name
+    func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
+        return entries[row].name
     }
     
-    func tableViewSelectionDidChange(aNotification: NSNotification?) {
+    func tableViewSelectionDidChange(_ aNotification: Notification) {
         if tableView.numberOfSelectedRows != 1 {
             imageView.image = nil
         } else {
-            let entry = entries![tableView.selectedRow]
-            dispatch_async(dispatch_get_global_queue(0, 0), {
-                let image = EfiresFile.imageForEntry(entry, url: self.url!)
-                dispatch_async(dispatch_get_main_queue(), {
+            let entry = entries[tableView.selectedRow]
+            DispatchQueue.global().async {
+                let image = EfiresFile.imageForEntry(entry: entry, url: self.url!)
+                DispatchQueue.main.async {
                     if image != nil {
                         self.imageView.image = image
                     } else {
                         self.imageView.image = nil
                         print("Not an image: \(entry.name)")
                     }
-                })
-            })
+                }
+            }
         }
     }
     
-    @IBAction func export(sender: AnyObject!) {
+    @IBAction func export(_ sender: AnyObject) {
         let openPanel = NSOpenPanel()
         openPanel.canChooseDirectories = true
         openPanel.canChooseFiles = false
-        openPanel.beginSheetModalForWindow(self.mainWindow, completionHandler: { (returnCode) -> Void in
+        openPanel.beginSheetModal(for: self.mainWindow, completionHandler: { (returnCode) -> Void in
             if returnCode == NSFileHandlingPanelOKButton {
-                let url = openPanel.URL
+                let url = openPanel.url
                 for row in self.tableView.selectedRowIndexes {
-                    let entry = self.entries![row]
-                    if let data = EfiresFile.dataForEntry(entry, url: self.url!) {
-                        let entryURL = url?.URLByAppendingPathComponent(entry.name)
-                        if data.writeToURL(entryURL!, atomically:true) == false {
-                            print("Failed to write \(entry.name)")
+                    let entry = self.entries[row]
+                    if let data = EfiresFile.dataForEntry(entry: entry, url: self.url!) {
+                        guard let entryURL = url?.appendingPathComponent(entry.name) else {
+                            print("Error with entry url: \(entry.name)")
+                            return
+                        }
+                        do {
+                            try data.write(to: entryURL, options: .atomic);
+                        } catch {
+                            print("Failed to write \(entry.name): \(error)")
                         }
                     }
                 }
