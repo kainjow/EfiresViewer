@@ -55,7 +55,7 @@ import Cocoa
         return entries[row].name
     }
     
-    func tableViewSelectionDidChange(_ aNotification: Notification) {
+    @objc func tableViewSelectionDidChange(_ aNotification: Notification) {
         if tableView.numberOfSelectedRows != 1 {
             imageView.image = nil
         } else {
@@ -79,7 +79,7 @@ import Cocoa
         openPanel.canChooseDirectories = true
         openPanel.canChooseFiles = false
         openPanel.beginSheetModal(for: self.mainWindow, completionHandler: { (returnCode) -> Void in
-            if returnCode == NSFileHandlingPanelOKButton {
+            if returnCode.rawValue == NSFileHandlingPanelOKButton {
                 let url = openPanel.url
                 for row in self.tableView.selectedRowIndexes {
                     let entry = self.entries[row]
@@ -99,7 +99,7 @@ import Cocoa
         })
     }
     
-    func exportMenuEnabled() -> Bool {
+    @objc func exportMenuEnabled() -> Bool {
         return self.tableView.numberOfSelectedRows != 0
     }
 }
